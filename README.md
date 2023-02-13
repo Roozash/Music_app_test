@@ -20,11 +20,7 @@ Songs with preferred genre 1 should be listed before songs in the preferred genr
 output for each preterred genre must be in alphabetic order.
 
 Per every user, the output message format Is the following:
-  Name and Surname number of songs is:
-    -song
-    -song
-    -song
-
-
-
-.
+    Name and Surname number of songs is:
+      -song
+      -song
+      -song
