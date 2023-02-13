@@ -1,0 +1,59 @@
+def main():
+    music = ""
+    name = ""
+    music_dic, usernames = read(music, name)
+    user_input = input('Please entre Your name: ')
+    # user_input = 'Rooz'
+    while user_input.isnumeric():
+        user_input = input('Please entre Your name in Capital letters: ')
+    while user_input not in usernames:
+        user_input = input('Please entre a name who is already saved: ')
+    # user_number = input('How many song do you need: ')
+    # while not user_number.isnumeric():
+    #     user_number = int(input('Please enter number: '))
+    result1, result2 = search(usernames[user_input], music_dic)
+    total = len(result1) + len(result2)
+    print(f'{user_input} number of songs is {total}')
+
+    for i in result1:
+        print('-', i)
+    for j in result2:
+        print('-', j)
+
+
+def read(music, name):
+    user = dict()
+    song = list()
+    try:
+        with open(music) as file:
+            line = file.readline().strip().split('; ')
+            while line != ['']:
+                song.append(line)
+                line = file.readline().strip().split('; ')
+
+        with open(name) as file2:
+            line2 = file2.readline().strip().split('; ')
+            while line2 != ['']:
+                user[line2[0]] = line2[1:]
+                line2 = file2.readline().strip().split('; ')
+    except OSError as error:
+        print(f'Somethings Wrong with the file. {error}')
+
+    return song, user
+
+
+def search(lst_genre, lst_song):
+    result1 = list()
+    result2 = list()
+    for i in lst_song:
+        if lst_genre[0] in i:
+            result1.append('; '.join(n for n in i[:2]))
+        if lst_genre[1] in i:
+            result2.append('; '.join(n for n in i[:2]))
+    for j in result1:
+        if j in result2:
+            result2.remove(j)
+    return sorted(result1) , sorted(result2)
+
+if __name__ == '__main__':
+    main()
